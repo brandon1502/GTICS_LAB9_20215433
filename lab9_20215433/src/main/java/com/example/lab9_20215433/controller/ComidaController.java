@@ -1,11 +1,12 @@
 package com.example.lab9_20215433.controller;
 import com.example.lab9_20215433.dao.ComidaDao;
 import com.example.lab9_20215433.entity.Comida;
+import com.example.lab9_20215433.entity.PlatoFavorito;
+import com.example.lab9_20215433.repository.PlatoFavoritoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,9 +18,11 @@ public class ComidaController {
     final ComidaDao comidaDao;
 
 
+    @Autowired
+    PlatoFavoritoRepository platoFavoritoRepository;
+
     public ComidaController(ComidaDao comidaDao) {
         this.comidaDao = comidaDao;
-
     }
 
     @GetMapping("/listarPorBuscador")
@@ -36,4 +39,27 @@ public class ComidaController {
         model.addAttribute("comida", comida);
         return "comida/verDetalles";
     }
+
+    @PostMapping("/guardarPlatosFav")
+    @ResponseBody
+    public String guardarPlatosFav(@RequestParam("id") String id, Model model) {
+
+        Comida comida  = comidaDao.verDetallesComida(id);
+        if (comida == null) {
+            return "error";
+        }
+        PlatoFavorito platoFavorito = new PlatoFavorito();
+
+        platoFavorito.setNombre(comida.getStrMeal());
+        platoFavorito.setCategoria(comida.getStrCategory());
+        platoFavorito.setFoto(comida.getStrMealThumb());
+
+
+        platoFavoritoRepository.save(platoFavorito);
+
+
+        return "success";
+    }
+
+
 }

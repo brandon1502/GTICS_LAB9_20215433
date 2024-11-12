@@ -18,7 +18,34 @@
             </div>
 
             <div>
+                <div class="text-center my-4">
                 <h2 th:text="${comida.strMeal}"></h2>
+                </div>
+                <div class="text-center my-4">
+                    <button id="favoriteButton" class="btn btn-outline-primary" onclick="addToFavorites()"
+                            th:attr="data-id=${comida.idMeal}">
+                        <i class="bi bi-star"></i> Add to favorite
+                    </button>
+                </div>
+
+                <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="successModalLabel">Congratulations!</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                You added this meal to favorites.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center my-4">
                 <p>
                     <span class="bold-text"><strong>Category:</strong></span>
                     <span th:text="${comida.strCategory}"></span>
@@ -31,6 +58,7 @@
                     <span class="bold-text"><strong>Tags:</strong></span>
                     <span th:text="${comida.strTags}"></span>
                 </p>
+                </div>
                 <p>
                     <span class="bold-text"><strong>Instructions:</strong></span>
                     <span th:text="${comida.strInstructions}"></span>
@@ -107,5 +135,36 @@
                 </ul>
             </div>
         </div>
+
+        <script>
+            function addToFavorites() {
+
+                const favoriteButton = document.getElementById('favoriteButton');
+                const id = favoriteButton.getAttribute('data-id');
+
+                fetch(`/comida/guardarPlatosFav?id=${id}`, {
+                    method: 'POST'
+                })
+                    .then(response => response.text())
+                    .then(result => {
+                        if (result === "success") {
+                            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                            successModal.show();
+
+                            // Cambiar el estilo y texto del botón
+                            favoriteButton.classList.remove('btn-outline-primary');
+                            favoriteButton.classList.add('btn-success');
+                            favoriteButton.innerHTML = '<i class="bi bi-check"></i> Favorite';
+                            favoriteButton.disabled = true;
+                        } else {
+                            alert("Error adding to favorites. Please try again.");
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        </script>
+
+
+
     </body>
 </html>
