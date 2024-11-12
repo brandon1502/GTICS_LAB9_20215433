@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TELEMEAL Detalles </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
+    </head>
+    <body>
+        <div class="container my-5">
+            <h1 class="text-center mb-4">TELEMEAL</h1>
+
+            <div class="text-center mb-4">
+                <img th:src="${comida.strMealThumb}" class="img-fluid rounded container-img" th:alt="${comida.strMeal}" style="max-width: 20%;">
+            </div>
+
+            <div>
+                <div class="text-center my-4">
+                <h2 th:text="${comida.strMeal}"></h2>
+                </div>
+                <div class="text-center my-4">
+                    <button id="favoriteButton" class="btn btn-outline-primary" onclick="addToFavorites()"
+                            th:attr="data-id=${comida.idMeal}">
+                        <i class="bi bi-star"></i> Add to favorite
+                    </button>
+                </div>
+
+                <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="successModalLabel">Congratulations!</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                You added this meal to favorites.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center my-4">
+                <p>
+                    <span class="bold-text"><strong>Category:</strong></span>
+                    <span th:text="${comida.strCategory}"></span>
+                </p>
+                <p>
+                    <span class="bold-text"><strong>Area:</strong></span>
+                    <span th:text="${comida.strArea}"></span>
+                </p>
+                <p>
+                    <span class="bold-text"><strong>Tags:</strong></span>
+                    <span th:text="${comida.strTags}"></span>
+                </p>
+                </div>
+                <p>
+                    <span class="bold-text"><strong>Instructions:</strong></span>
+                    <span th:text="${comida.strInstructions}"></span>
+                </p>
+            </div>
+
+            <div class="mt-4">
+                <h4>Ingredients:</h4>
+                <ul class="list-group">
+                    <li class="list-group-item" th:if="${comida.strIngredient1} != ''">
+                        <span th:text="${comida.strMeasure1}"></span> <span th:text="${comida.strIngredient1}"></span>
+                    </li>
+                    <li class="list-group-item" th:if="${comida.strIngredient2} != ''">
+                        <span th:text="${comida.strMeasure2}"></span> <span th:text="${comida.strIngredient2}"></span>
+                    </li>
+                    <li class="list-group-item" th:if="${comida.strIngredient3} != ''">
+                        <span th:text="${comida.strMeasure3}"></span> <span th:text="${comida.strIngredient3}"></span>
+                    </li>
+                    <li class="list-group-item" th:if="${comida.strIngredient4} != ''">
+                        <span th:text="${comida.strMeasure4}"></span> <span th:text="${comida.strIngredient4}"></span>
+                    </li>
+                    <li class="list-group-item" th:if="${comida.strIngredient5} != ''">
+                        <span th:text="${comida.strMeasure5}"></span> <span th:text="${comida.strIngredient5}"></span>
+                    </li>
+                    <li class="list-group-item" th:if="${comida.strIngredient6} != ''">
+                        <span th:text="${comida.strMeasure6}"></span> <span th:text="${comida.strIngredient6}"></span>
+                    </li>
+                    <li class="list-group-item" th:if="${comida.strIngredient7} != ''">
+                        <span th:text="${comida.strMeasure7}"></span> <span th:text="${comida.strIngredient7}"></span>
+                    </li>
+
+                    <li class="list-group-item" th:if="${comida.strIngredient8} != ''">
+                        <span th:text="${comida.strMeasure8}"></span> <span th:text="${comida.strIngredient8}"></span>
+                    </li>
+
+                    <li class="list-group-item" th:if="${comida.strIngredient9} != ''">
+                        <span th:text="${comida.strMeasure9}"></span> <span th:text="${comida.strIngredient9}"></span>
+                    </li>
+
+                    <li class="list-group-item" th:if="${comida.strIngredient10} != ''">
+                        <span th:text="${comida.strMeasure10}"></span> <span th:text="${comida.strIngredient10}"></span>
+                    </li>
+                    <li class="list-group-item" th:if="${comida.strIngredient11} != ''">
+                        <span th:text="${comida.strMeasure11}"></span> <span th:text="${comida.strIngredient11}"></span>
+                    </li>
+                    <li class="list-group-item" th:if="${comida.strIngredient12} != ''">
+                        <span th:text="${comida.strMeasure12}"></span> <span th:text="${comida.strIngredient12}"></span>
+                    </li>
+                    <li class="list-group-item" th:if="${comida.strIngredient13} != ''">
+                        <span th:text="${comida.strMeasure13}"></span> <span th:text="${comida.strIngredient13}"></span>
+                    </li>
+                    <li class="list-group-item" th:if="${comida.strIngredient14} != ''">
+                        <span th:text="${comida.strMeasure14}"></span> <span th:text="${comida.strIngredient14}"></span>
+                    </li>
+                    <li class="list-group-item" th:if="${comida.strIngredient15} != ''">
+                        <span th:text="${comida.strMeasure15}"></span> <span th:text="${comida.strIngredient15}"></span>
+                    </li>
+                    <li class="list-group-item" th:if="${comida.strIngredient16} != ''">
+                        <span th:text="${comida.strMeasure16}"></span> <span th:text="${comida.strIngredient16}"></span>
+                    </li>
+                    <li class="list-group-item" th:if="${comida.strIngredient17} != ''">
+                        <span th:text="${comida.strMeasure17}"></span> <span th:text="${comida.strIngredient17}"></span>
+                    </li>
+                    <li class="list-group-item" th:if="${comida.strIngredient18} != ''">
+                        <span th:text="${comida.strMeasure18}"></span> <span th:text="${comida.strIngredient18}"></span>
+                    </li>
+                    <li class="list-group-item" th:if="${comida.strIngredient19} != ''">
+                        <span th:text="${comida.strMeasure19}"></span> <span th:text="${comida.strIngredient19}"></span>
+                    </li>
+                    <li class="list-group-item" th:if="${comida.strIngredient20} != ''">
+                        <span th:text="${comida.strMeasure20}"></span> <span th:text="${comida.strIngredient20}"></span>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <script>
+            function addToFavorites() {
+
+                const favoriteButton = document.getElementById('favoriteButton');
+                const id = favoriteButton.getAttribute('data-id');
+
+                fetch(`/comida/guardarPlatosFav?id=${id}`, {
+                    method: 'POST'
+                })
+                    .then(response => response.text())
+                    .then(result => {
+                        if (result === "success") {
+                            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                            successModal.show();
+
+                            // Cambiar el estilo y texto del botón
+                            favoriteButton.classList.remove('btn-outline-primary');
+                            favoriteButton.classList.add('btn-success');
+                            favoriteButton.innerHTML = '<i class="bi bi-check"></i> Favorite';
+                            favoriteButton.disabled = true;
+                        } else {
+                            alert("Error adding to favorites. Please try again.");
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        </script>
+
+
+
+    </body>
+</html>
