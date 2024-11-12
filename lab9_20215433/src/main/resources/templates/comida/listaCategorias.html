@@ -11,27 +11,49 @@
 
             <div class="row justify-content-center mb-4">
                 <div class="col-md-12 col-lg-12">
-                    <form class="input-group">
-                        <input type="text" placeholder="Search for a meal" class="form-control" aria-label="Search for a meal">
+                    <form th:action="@{/comida/listarPorBuscador}" method="get" class="input-group">
+                        <input type="text" name="nombre" placeholder="Search for a meal" class="form-control" aria-label="Search for a meal">
                         <button type="submit" class="btn btn-primary">Search</button>
                     </form>
                 </div>
             </div>
 
-            <div class="row">
-                <div th:each="categoria : ${listaCategorias}" class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <div class="card-header text-center">
-                            <h5 class="card-title mb-0" th:text="${categoria.strCategory}"></h5>
-                        </div>
-                        <img th:src="${categoria.strCategoryThumb}" class="card-img-top" th:alt="${categoria.strCategory}">
-                        <div class="card-body">
-                            <p class="card-text" th:text="${categoria.strCategoryDescription}"></p>
+
+            <div th:if="${listaComidas == null}">
+                <div class="row">
+                    <div th:each="categoria : ${listaCategorias}" class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header text-center">
+                                <h5 class="card-title mb-0" th:text="${categoria.strCategory}"></h5>
+                            </div>
+                            <img th:src="${categoria.strCategoryThumb}" class="card-img-top" th:alt="${categoria.strCategory}">
+                            <div class="card-body">
+                                <p class="card-text" th:text="${categoria.strCategoryDescription}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <div th:if="${listaComidas != null}">
+                <div class="row">
+                    <div th:each="comida : ${listaComidas}" class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header text-center">
+                                <h5 class="card-title mb-0" th:text="${comida.strMeal}"></h5>
+                            </div>
+
+                            <a th:href="@{/comida/verDetalles(id=${comida.idMeal})}">
+                                <img th:src="${comida.strMealThumb}" class="card-img-top" th:alt="${comida.strMeal}">
+                            </a>
+
+                            <div class="text-center">
+                                <h5 class="card-title mb-0" th:text="${comida.strCategory}"></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </body>
